@@ -18,4 +18,4 @@ WORKDIR /opt/application
 EXPOSE 3000
 
 
-CMD [ "export MONGO_URL=mongodb://localhost:27027/meteor; meteor" ]
+CMD [ "export USER="";export MONGO_URL=mongodb://localhost:27027/meteor; meteor" ]
