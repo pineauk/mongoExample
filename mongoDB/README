@@ -1,0 +1,37 @@
+#This is the set of scripts requried to run to setup users on the mongo database:
+#First you must connect to the database:
+#The server must be started using noauth initially. So you can either add --noauth to the command you use to start the server or you may edit the config file and set auth to false initially.
+mongo --port 27018 --authenticationDatabase admin
+##One inside you must run:
+#replace the password with your own for the local developement
+#this will create a user that has access to the whoel database and the ability to create new users
+#this only needs to be done once
+use admin
+db.createUser(
+  {
+    user: "siteUserAdmin",
+    pwd: "password",
+    roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
+  }
+)
+
+#This is an example of how to create a new user and collection called records
+use records
+db.createUser(
+  {
+    user: "recordsUserAdmin",
+    pwd: "password",
+    roles: [ { role: "userAdmin", db: "records" } ]
+  }
+)
+#you now have two users, one which is used only for new user/database creation and one that has access to a database called records
+#you must now shutdown the server, using /usr/bin/mongod --config <config filepath> --restart
+#The following website provides more quick reference material on adding roles, and various other parts of the authenticaiton system.
+#http://docs.mongodb.org/manual/reference/security/
+#The following website is also very well documented for any sort of information regarding mongodb
+#http://docs.mongodb.org/manual/
+#As a further note, when setting up meteor environement. you will need the following to configure you external mongo database when it has been setup with authentication:
+export MONGO_URL='mongodb://user:password@host:port/databasename'
+#if you wish to access the mongo shell after you have made the users, you must use the following command
+mongo --port <port #> -u <user> -p <password> --authenticationDatabase <database user has control over>
+
