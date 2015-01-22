@@ -27,34 +27,72 @@ Schema.Patient = new SimpleSchema({
 	},
 	clinicList: {
 		type: Object
-	},
+	}
 })
 Schema.Practitioner = new SimpleSchema({
-	_id:
-	userID:
-	taskList:
-	configList:
-	clinicList:
-	patientList:
+	_id: {
+		type: String
+	},
+	userID: {
+		type: String
+	},
+	taskList: {
+		type: Object
+	}
+	configList: {
+		type: Object
+	}
+	clinicList: {
+		type: Object
+	}
+	patientList: {
+		type: Object
+	}
 })
 Schema.Clinic = new SimpleSchema({
-	_id:
-	userID:
-	configList:
-	patientList:
-	practitionerList:
+	_id: {
+		type: String
+	},
+	userID: {
+		type: String
+	},
+	configList: {
+		type: Object
+	},
+	patientList: {
+		type: Object
+	},
+	practitionerList: {
+		type: Object
+	}
 })
 Schema.Configuration = new SimpleSchema({
-	_id:
-	templateConfig:
-	dataConfig:
+	_id: {
+		type: String
+	},
+	templateConfig: {
+		type: Object
+	}	
+	dataConfig: {
+		type: Object
+	}
 })
 Schema.SurveyData = new SimpleSchema({
-	_id:
-	dataObject:
-	dateCompleted:
-	userID:
-	practitionerID:
+	_id: {
+		type: String
+	},
+	dataObject: {
+		type: Object
+	}
+	dateCompleted: {
+		type: String
+	},
+	userID: {
+		type: String
+	},
+	practitionerID: {
+		type: String
+	},
 })
 Schema.Task = new SimpleSchema({
 	_id: {
@@ -99,8 +137,7 @@ Schema.Session = new SimpleSchema({
 		type: String
 	},
 	dataObject: {
-		type: Object,
-		optional: true
+		type: Object
 	}
 })
 Schema.UserCountry = new SimpleSchema({
@@ -199,4 +236,9 @@ Schema.User = new SimpleSchema({
 
 
 Patients.attachSchema(Schema.Patient);
+Practitioners.attachSchema(Schema.Practitioner);
+Clinics.attachSchema(Schema.Clinic);
+Configurations.attachSchema(Schema.Configuration);
+SurveyData.attachSchema(Schema.SurveyData);
+Tasks.attachSchema(Schema.Task);
 Meteor.users.attachSchema(Schema.User);
