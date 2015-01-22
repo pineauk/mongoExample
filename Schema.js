@@ -1,3 +1,4 @@
+//Initialize our collections
 Patients = new Mongo.Collection("Patients");
 Practitioners = new Mongo.Collection("Practitioners");
 Clinics = new Mongo.Collection("Clinics");
@@ -6,6 +7,7 @@ SurveyData = new Mongo.Collection("SurveyData");
 Tasks = new Mongo.Collection("Tasks");
 Sessions = new Mongo.Collection("Sessions");
 
+//Initialize an array to hol our data
 var Schema = {}
 
 Schema.Patient = new SimpleSchema({
@@ -85,13 +87,14 @@ Schema.SurveyData = new SimpleSchema({
 		type: Object
 	}
 	dateCompleted: {
-		type: String
+		type: Date
 	},
 	userID: {
 		type: String
 	},
 	practitionerID: {
-		type: String
+		type: String,
+		optional: true
 	},
 })
 Schema.Task = new SimpleSchema({
@@ -140,6 +143,7 @@ Schema.Session = new SimpleSchema({
 		type: Object
 	}
 })
+//The following code for users is from the creator of the package collections2
 Schema.UserCountry = new SimpleSchema({
     name: {
         type: String
@@ -168,20 +172,6 @@ Schema.UserProfile = new SimpleSchema({
     gender: {
         type: String,
         allowedValues: ['Male', 'Female'],
-        optional: true
-    },
-    organization : {
-        type: String,
-        regEx: /^[a-z0-9A-z .]{3,30}$/,
-        optional: true
-    },
-    website: {
-        type: String,
-        regEx: SimpleSchema.RegEx.Url,
-        optional: true
-    },
-    bio: {
-        type: String,
         optional: true
     },
     country: {
@@ -231,10 +221,20 @@ Schema.User = new SimpleSchema({
         optional: true,
         blackbox: true
     }
+    userType: {
+    	type: String
+    }
+    userTypeID: {
+    	type: String
+    }
+    sessionList: {
+    	type: Object,
+    	optional: true
+    }
 });
 
 
-
+//Attach the created schemas to the collections
 Patients.attachSchema(Schema.Patient);
 Practitioners.attachSchema(Schema.Practitioner);
 Clinics.attachSchema(Schema.Clinic);
